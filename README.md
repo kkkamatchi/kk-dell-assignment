@@ -2,33 +2,31 @@
 KKKamatchi Dell Assignment
 
 
-Greetings
+Greetings,
 
-This assignment has been developed for the pre-interview assignment
+This task has been produced for the pre-interview task for the job role of DevOps
 
 Webdevelopment tool used JavaScript
-index.html (JavaScript)
+	index.html (JavaScript)
 
-This will connect to the https://api.data.gov.sg/v1/environment/rainfall via API to fetch the Singapore's Rainfall information
-Parameters passed DateTime and Date 
-upon fetching the information it will filter for the specific location and display the info on the HTML format
+	This will connect to the https://api.data.gov.sg/v1/environment/rainfall via API to fetch the Singapore's Rainfall information
+	Parameters passed DateTime and Date 
+	Upon fetching the information it will filter for the specific location and display the info on the HTML format
 	
 Docker (Container Service)
-dockerfile
+	dockerfile
 
-This will download the latest image of nginx from docker hub
-the index.html file is copied to the image
-port 80 and 8080 is exposed for accessing the site
+	This will download the latest image of nginx from docker hub the index.html file is copied to the image 
+	Port 80 and 8080 is exposed for accessing the site
 
-you can download this dockerfile and index.html to local machine and run the following command to build the image
+	You can download this dockerfile and index.html to local machine and run the following command to build the image
+		docker build . -t <image name>
+		docker run -p 8080:80 <image name> --name <containter name>
 
-	docker build . -t <image name>
-	docker run -p 8080:80 <image name> --name <containter name>
+	You can now access the site by http://127.0.0.1:80/index.html
 
-You can now access the site by http://127.0.0.1:80/index.html
-
-Upload the image to DockerHub
-	docker image push <image name>
+	Upload the image to DockerHub
+		docker image push <image name>
 
 MiniKube (Kubernetes Desktop Edition)
 	You will need a working instance of MiniKube
