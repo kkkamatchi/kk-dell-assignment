@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dell-assignment-service
+  namespace: dell-assignment-kk
+spec:
+  selector:
+    app: dell-assignment
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

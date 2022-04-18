@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dell-assignment-ingress
+  namespace: dell-assignment-kk
+spec:
+  rules:
+  - host: rainfallinfo.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            # serviceName: dell-assignment-service
+            # servicePort: 80
+            name: dell-assignment-service
+            port: 
+              number: 80

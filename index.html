@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dell Assignment</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script type="text/javascript">
+    var apiUrl = 'https://api.data.gov.sg/v1/environment/rainfall';
+    var dev_loc = 'Alexandra Road'
+    // console.log(process.env);
+    // require('dotenv').config();
+    // const dotenv = require('dotenv').config({ path: __dirname + '/.env' })
+    // var apiUrl = process.env.APIURL
+    // var dev_loc = process.env.DEV_LOC
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+('0'+(today.getMonth()+1)).slice(-2)+'-'+today.getDate();
+    var time = ('0'+(today.getHours())).slice(-2) + "%3A" + ('0'+(today.getMinutes())).slice(-2) + "%3A" + today.getSeconds();
+    var dateTime = date+'T'+time;
+
+    var apiUrl_param = apiUrl + '?date_time=' + dateTime + '&date=' + date;
+
+    function Find_Device(info)
+    {
+        console.log(dev_loc)
+        const Station_Info_Arr = Object.values(info.metadata.stations)
+        const filtered = Station_Info_Arr.filter(function(station_name){
+            return station_name.name == dev_loc;
+        });
+        const Device_ID = filtered[0].id;
+        const Items = Object.values(info.items[0]);
+        const filtered_readings = Items[1].filter(function(Items_info){
+            return Items_info.station_id == Device_ID;
+        });
+        const reading_value = filtered_readings[0].value
+        const Units = info.metadata.reading_unit;
+
+        if (reading_value == 0) {
+            RainStaus = 'Not Raining'
+        }else
+        {
+            RainStaus = 'Raining'
+        }
+
+        var display_time = ('0'+(today.getHours())).slice(-2) + ":" + ('0'+(today.getMinutes())).slice(-2)
+        const Display = dev_loc + ', ' + display_time + ', ' + reading_value + Units +', ' + RainStaus;
+        console.log(Display);
+        write_to_page(Display)
+        
+        // document.getElementById('body').innerHTML = Display
+    }
+    function write_to_page(Display_Text){
+        // document.getElementById("head").style.fontSize = "x-large";
+        // document.getElementById("Demo").innerHTML = Display_Text;
+
+
+        document.write(Display_Text);
+    }
+
+    fetch(apiUrl_param)
+        .then(res => res.json())
+        .then(data => Find_Device(data))
+
+    
+</script>
